@@ -1,10 +1,8 @@
 package itc.dev.com.generate;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import android.support.annotation.NonNull;
 
 import java.io.File;
-import java.lang.reflect.Type;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -24,7 +22,17 @@ public class GenerateExecutor {
 
 
     public static List<User> generateAndSaveToFile() {
-        Gson gson = new Gson();
+
+        List<User> listUsers = generateListUsers();
+
+        File modelFile = FileUril.getModelFile();
+
+        FileUril.saveToFile(listUsers, modelFile);
+        return listUsers;
+    }
+
+    @NonNull
+    private static List<User> generateListUsers() {
         List<User> listUsers = new LinkedList<>();
         for (int i = 0; i < 50000; i++) {
             Random random = new Random(i);
@@ -44,17 +52,15 @@ public class GenerateExecutor {
             listUsers.add(user);
 
         }
-        File modelFile = FileUril.getModelFile();
-
-        FileUril.saveToFile(gson.toJson(listUsers), modelFile);
         return listUsers;
     }
 
     public static List<User> restoreFromFileModel() {
-        String content = FileUril.readFromFile(FileUril.getModelFile());
-        Type listType = new TypeToken<LinkedList<User>>() {
-        }.getType();
-        return new Gson().fromJson(content, listType);
+//        String content = FileUril.readFromFile(FileUril.getModelFile());
+//        Type listType = new TypeToken<LinkedList<User>>() {
+//        }.getType();
+//        new Gson().fromJson(content, listType);
+        return FileUril.getUsers(FileUril.getModelFile());
     }
 
 }

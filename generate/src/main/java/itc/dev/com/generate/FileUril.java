@@ -11,6 +11,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by Pavel on 19.10.2015.
@@ -116,4 +120,61 @@ public class FileUril {
         System.out.println("Done!");
 
     }
+
+    public static void saveToFile(List<User> content, File file) {
+
+        FileOutputStream outputStream = null;
+        ObjectOutputStream objectOutputStream = null;
+
+        try {
+            // write the inputStream to a FileOutputStream
+            if (!file.exists())
+                file.createNewFile();
+            outputStream =
+                    new FileOutputStream(file);
+            objectOutputStream = new ObjectOutputStream(outputStream);
+            objectOutputStream.writeObject(content);
+//            for (User user : content) {
+//                objectOutputStream.writeObject(user);
+//            }
+            objectOutputStream.close();
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (outputStream != null) {
+                try {
+                    outputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }
+        System.out.println("Done!");
+
+    }
+
+    public static List<User> getUsers(File file) {
+        List<User> list = new LinkedList<>();
+        try {
+            FileInputStream fis = new FileInputStream(file);
+            ObjectInputStream is = new ObjectInputStream(fis);
+            return (List<User>) is.readObject();
+//            int size = is.readInt();
+
+//            for (int i = 0; i < size; i++) {
+//                list.add((User) is.readObject());
+//            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+
 }
