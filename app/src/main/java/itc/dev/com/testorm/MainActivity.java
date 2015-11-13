@@ -4,19 +4,27 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.widget.TextView;
 
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.UiThread;
+import org.androidannotations.annotations.ViewById;
+
+import java.util.List;
 
 import itc.dev.com.generate.GenerateExecutor;
+import itc.dev.com.generate.User;
 
 @EActivity(R.layout.activity_main) // Sets content view to R.layout.translate
 public class MainActivity extends Activity {
 
     ProgressDialog progressDialog;
-
+    @ViewById
+    TextView textViewLoad;
+    @ViewById
+    TextView textViewGenerate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,10 +55,15 @@ public class MainActivity extends Activity {
     @Background
     void makeGeneration() {
         showProgress("Genarate Model...");
-        GenerateExecutor.generateAndSaveToFile();
-        showMessage("Generation model complete.");
+        List<User> list = GenerateExecutor.generateAndSaveToFile();
+        generationComplete(list);
         dismissProgress();
 
+    }
+
+    @UiThread
+    void generationComplete(List<User> list) {
+        textViewGenerate.setText("Generation complete:" + list.size());
     }
 
     @UiThread
@@ -58,6 +71,20 @@ public class MainActivity extends Activity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(message);
         builder.create().show();
+    }
+
+    @Background
+    @Click
+    public void loadFormFileButton() {
+        showProgress("Loading Model...");
+        List<User> list = GenerateExecutor.restoreFromFileModel();
+        loadComplete(list);
+    }
+
+    @UiThread
+    public void loadComplete(List<User> list) {
+        dismissProgress();
+        textViewLoad.setText("Loaded :" + list.size());
     }
 
 }
