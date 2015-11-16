@@ -1,4 +1,4 @@
-package itc.dev.com.generate;
+package itc.dev.com.baseprovider;
 
 import android.os.Environment;
 import android.util.Log;
@@ -16,6 +16,7 @@ import java.io.InputStreamReader;
  * Created by Pavel on 19.10.2015.
  */
 public class FileUril {
+    public static final String DATABE_NAME = "user_sqlbite.db";
     public static final String VOICE_TEMP_FILE = "model.txt";
     public static final String CACHE_FOLDER = "text_orm";
     public static final String FLODER_SD = Environment.getExternalStorageDirectory().getAbsolutePath();
@@ -23,6 +24,17 @@ public class FileUril {
     //    public static final String VOICE_TEMP_PATH = FLODER_SD+ File.separator + VOICE_TEMP_FILE;
     public static void deleteCacheFolder() {
         deleteFiles(new File(FLODER_SD, CACHE_FOLDER));
+    }
+
+
+    public static File getDataBaseFile() {
+        File file = new File(FLODER_SD, CACHE_FOLDER);
+        if (!file.exists())
+            file.mkdir();
+
+        file = new File(file, DATABE_NAME);
+
+        return file;
     }
 
     public static File getModelFile() {
