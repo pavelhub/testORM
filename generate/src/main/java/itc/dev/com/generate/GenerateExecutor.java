@@ -1,7 +1,6 @@
 package itc.dev.com.generate;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.File;
@@ -10,9 +9,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
-
-import itc.dev.com.baseprovider.FileUril;
-import itc.dev.com.baseprovider.UserModel;
 
 /**
  * Created by pavel on 11/10/15.
@@ -27,42 +23,36 @@ public class GenerateExecutor {
     private static String[] domain = new String[]{"teach.com", "mail.ru", "gmail.com", "yandex.ua", "mall.li", "arish.pub"};
 
 
-    public static List<UserModel> generateAndSaveToFile() {
+    public static List<User> generateAndSaveToFile() {
         Gson gson = new Gson();
-        List<UserModel> listUserModels = new LinkedList<>();
-        for (int i = 0; i < 2000; i++) {
+        List<User> listUsers = new LinkedList<>();
+        for (int i = 0; i < 50000; i++) {
             Random random = new Random(i);
-            UserModel userModel = new UserModel();
-            userModel.id = i;
-            userModel.first_name = firstName[random.nextInt(firstName.length)];
-            userModel.last_name = lastNames[random.nextInt(lastNames.length)];
+            User user = new User();
+            user.id = i;
+            user.first_name = firstName[random.nextInt(firstName.length)];
+            user.last_name = lastNames[random.nextInt(lastNames.length)];
             String emailString = email[random.nextInt(email.length)] + "@" + domain[random.nextInt(domain.length)];
-            userModel.email = emailString;
-            userModel.password = String.valueOf(i) + userModel.email.hashCode();
-            userModel.photo_url = domain[random.nextInt(domain.length)] + "/" + UUID.randomUUID().toString() + ".jpg";
-            userModel.phone_code = phoneCode[random.nextInt(phoneCode.length)];
-            userModel.phone_value = phone[random.nextInt(phone.length)];
-            userModel.isAdmin = random.nextBoolean();
-            userModel.height = height[random.nextInt(height.length)];
-            userModel.age = random.nextInt(30) + 16;
-            listUserModels.add(userModel);
+            user.email = emailString;
+            user.password = String.valueOf(i) + user.email.hashCode();
+            user.photo_url = domain[random.nextInt(domain.length)] + "/" + UUID.randomUUID().toString() + ".jpg";
+            user.phone_code = phoneCode[random.nextInt(phoneCode.length)];
+            user.phone_value = phone[random.nextInt(phone.length)];
+            user.isAdmin = random.nextBoolean();
+            user.height = height[random.nextInt(height.length)];
+            user.age = random.nextInt(30) + 16;
+            listUsers.add(user);
 
         }
         File modelFile = FileUril.getModelFile();
 
-        FileUril.saveToFile(gson.toJson(listUserModels), modelFile);
-        return listUserModels;
+        FileUril.saveToFile(gson.toJson(listUsers), modelFile);
+        return listUsers;
     }
 
-    public static List<UserModel> restoreFromFileModel() {
+    public static List<User> restoreFromFileModel() {
         String content = FileUril.readFromFile(FileUril.getModelFile());
-        Type listType = new TypeToken<LinkedList<UserModel>>() {
-        }.getType();
-        return new Gson().fromJson(content, listType);
-    }
-    public static JsonArray restoreFromFileJsonModel() {
-        String content = FileUril.readFromFile(FileUril.getModelFile());
-        Type listType = new TypeToken<JsonArray>() {
+        Type listType = new TypeToken<LinkedList<User>>() {
         }.getType();
         return new Gson().fromJson(content, listType);
     }
