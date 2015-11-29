@@ -40,21 +40,33 @@ public class MainActivity extends Activity {
         sqlBriteProvider = new SqlBriteProvider();
         sqlBriteProvider.init(this, new ProviderPostBack() {
             @Override
-            public void onOperationComplete(String provider, String operation, long time, String details) {
-                dismissProgress();
-                textViewInsertRXBrite.append(" provider: " + provider);
-                textViewInsertRXBrite.append(" operation: " + operation);
-                textViewInsertRXBrite.append(" time: " + time);
-                if (details != null && details.length() > 0)
-                    textViewInsertRXBrite.append(" details: " + details);
-                textViewInsertRXBrite.append("\n");
+            public void onOperationComplete(final String provider, final String operation, final long time, final String details) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        dismissProgress();
+                        textViewInsertRXBrite.append(" provider: " + provider);
+                        textViewInsertRXBrite.append(" operation: " + operation);
+                        textViewInsertRXBrite.append(" time: " + time);
+                        if (details != null && details.length() > 0)
+                            textViewInsertRXBrite.append(" details: " + details);
+                        textViewInsertRXBrite.append("\n");
+                    }
+                });
+
 
             }
 
             @Override
-            public void error(String provider, String operation, String message) {
-                dismissProgress();
-                showMessage("Error: " + provider + " operation" + operation + ": " + message);
+            public void error(final String provider, final String operation, final String message) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        dismissProgress();
+                        showMessage("Error: " + provider + " operation" + operation + ": " + message);
+                    }
+                });
+
             }
         });
 
@@ -113,7 +125,7 @@ public class MainActivity extends Activity {
         dismissProgress();
         textViewLoad.setText("Loaded :" + list.size());
     }
-
+    @Background
     @Click
     public void insertRXBriteButton() {
         showProgress("Inserting Model...");
@@ -127,5 +139,20 @@ public class MainActivity extends Activity {
         sqlBriteProvider.select("last_name", "Hubskiy");
 
     }
+    @Background
+    @Click
+    public void updateButtonSqlBrite() {
+        showProgress("Select Model... age >= 22 new is 21");
+        sqlBriteProvider.update("", "");
+
+    }
+    @Background
+    @Click
+    public void deleteButtonSqlBrite() {
+        showProgress("Delete Model... age >=21");
+        sqlBriteProvider.delete("", "");
+
+    }
+
 
 }

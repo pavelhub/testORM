@@ -30,10 +30,10 @@ public class GenerateExecutor {
     public static List<UserModel> generateAndSaveToFile() {
         Gson gson = new Gson();
         List<UserModel> listUserModels = new LinkedList<>();
-        for (int i = 0; i < 2000; i++) {
+        for (int i = 0; i < 50000; i++) {
             Random random = new Random(i);
             UserModel userModel = new UserModel();
-            userModel.id = i;
+            userModel.id = i+1;
             userModel.first_name = firstName[random.nextInt(firstName.length)];
             userModel.last_name = lastNames[random.nextInt(lastNames.length)];
             String emailString = email[random.nextInt(email.length)] + "@" + domain[random.nextInt(domain.length)];

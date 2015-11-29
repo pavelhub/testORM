@@ -29,14 +29,14 @@ public final class DbOpenHelper extends SQLiteOpenHelper {
             + Users.ID + " INTEGER NOT NULL PRIMARY KEY,"
             + Users.FIRST_NAME + " TEXT NOT NULL,"
             + Users.LAST_NAME + " TEXT NOT NULL,"
-            + Users.EMAIL + " TEXT NOT NULL,"
-            + Users.PASSWORD + " TEXT NOT NULL,"
-            + Users.PHOTO_URL + " TEXT NOT NULL,"
-            + Users.PHONE_CODE + " TEXT NOT NULL,"
-            + Users.PHONE_VALUE + " TEXT NOT NULL,"
-            + Users.AGE + " INTEGER NOT NULL,"
-            + Users.HEIGHT + " FLOAT NOT NULL,"
-            + Users.IS_ADMIN + " INTEGER NOT NULL DEFAULT 0"
+            + Users.EMAIL + " TEXT ,"
+            + Users.PASSWORD + " TEXT ,"
+            + Users.PHOTO_URL + " TEXT ,"
+            + Users.PHONE_CODE + " TEXT ,"
+            + Users.PHONE_VALUE + " TEXT ,"
+            + Users.AGE + " INTEGER ,"
+            + Users.HEIGHT + " FLOAT ,"
+            + Users.IS_ADMIN + " INTEGER DEFAULT 0"
             + ")";
 
 
