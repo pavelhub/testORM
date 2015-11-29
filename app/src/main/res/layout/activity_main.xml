@@ -37,30 +37,22 @@
                   android:layout_height="wrap_content"
                   android:text="NONE"/>
     </LinearLayout>
+
     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                  android:gravity="center_vertical" android:orientation="horizontal">
-        <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
-                      android:gravity="center_vertical" android:orientation="vertical">
+        android:gravity="center_vertical" android:orientation="horizontal">
 
 
-            <Button android:id="@+id/insertRXBriteButton" android:layout_width="120dp"
-                    android:layout_height="wrap_content"
-                    android:text="Insert  SQL Brite"/>
-            <Button android:id="@+id/selectButtonSqlBrite" android:layout_width="120dp"
-                    android:layout_height="wrap_content"
-                    android:text="Select SQL Brite"/>
-            <Button android:id="@+id/updateButtonSqlBrite" android:layout_width="120dp"
-                    android:layout_height="wrap_content"
-                    android:text="Update SQL Brite"/>
-            <Button android:id="@+id/deleteButtonSqlBrite" android:layout_width="120dp"
-                    android:layout_height="wrap_content"
-                    android:text="delete"/>
-        </LinearLayout>
+        <Button android:id="@+id/saveAllButton" android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="Save All"/>
 
-        <TextView android:id="@+id/textViewInsertRXBrite"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:text="NONE"/>
+        <Button android:id="@+id/deleteButton" android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="Delete"/>
+
+        <Button android:id="@+id/updateButton" android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="Update"/>
     </LinearLayout>
 
 </LinearLayout>

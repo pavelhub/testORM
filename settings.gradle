@@ -1,1 +1,1 @@
-include ':app', ':generate', ':sqlbriteprovider', ':baseprovider'
+include ':app', ':generate'
