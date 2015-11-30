@@ -18,7 +18,7 @@ import itc.dev.com.baseprovider.ORMProvider;
 import itc.dev.com.baseprovider.ProviderPostBack;
 import itc.dev.com.baseprovider.UserModel;
 import itc.dev.com.generate.GenerateExecutor;
-import itc.dev.com.sqlbriteprovider.SqlBriteProvider;
+import itc.dev.com.testorm.provider.ORMLightProvider;
 
 @EActivity(R.layout.activity_main) // Sets content view to R.layout.translate
 public class MainActivity extends Activity {
@@ -37,7 +37,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         progressDialog = new ProgressDialog(this);
-        sqlBriteProvider = new SqlBriteProvider();
+        sqlBriteProvider = new ORMLightProvider();
         sqlBriteProvider.init(this, new ProviderPostBack() {
             @Override
             public void onOperationComplete(final String provider, final String operation, final long time, final String details) {
@@ -125,6 +125,7 @@ public class MainActivity extends Activity {
         dismissProgress();
         textViewLoad.setText("Loaded :" + list.size());
     }
+
     @Background
     @Click
     public void insertRXBriteButton() {
@@ -139,6 +140,7 @@ public class MainActivity extends Activity {
         sqlBriteProvider.select("last_name", "Hubskiy");
 
     }
+
     @Background
     @Click
     public void updateButtonSqlBrite() {
@@ -146,6 +148,7 @@ public class MainActivity extends Activity {
         sqlBriteProvider.update("", "");
 
     }
+
     @Background
     @Click
     public void deleteButtonSqlBrite() {

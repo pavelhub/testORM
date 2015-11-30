@@ -10,14 +10,9 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/baseprovider" />
             <option value="$PROJECT_DIR$/generate" />
-          </set>
-        </option>
-        <option name="myModules">
-          <set>
-            <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/generate" />
+            <option value="$PROJECT_DIR$/sqlbriteprovider" />
           </set>
         </option>
         <option name="myModules">

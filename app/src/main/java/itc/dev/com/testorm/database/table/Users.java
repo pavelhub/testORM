@@ -8,8 +8,6 @@ import com.tojc.ormlite.android.annotation.AdditionalAnnotation.DefaultContentMi
 import com.tojc.ormlite.android.annotation.AdditionalAnnotation.DefaultContentUri;
 import com.tojc.ormlite.android.annotation.AdditionalAnnotation.DefaultSortOrder;
 
-import itc.dev.com.generate.User;
-
 @DatabaseTable(tableName = "users")
 @DefaultContentUri(authority = "itc.dev.com.testorm", path = "users")
 @DefaultContentMimeTypeVnd(name = "users", type = "itc.dev.com.testorm.provider")

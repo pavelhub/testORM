@@ -4,7 +4,6 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.google.gson.JsonArray;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
 
@@ -13,26 +12,32 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 
-import itc.dev.com.generate.User;
+import itc.dev.com.baseprovider.ORMProvider;
+import itc.dev.com.baseprovider.ProviderPostBack;
+import itc.dev.com.baseprovider.UserModel;
 import itc.dev.com.testorm.database.table.DataBaseHelper;
 import itc.dev.com.testorm.database.table.Users;
 
 /**
  * Created by pavel on 11/30/15.
  */
-public class ORMLightProvider extends ORMProvider {
+public class ORMLightProvider implements ORMProvider {
     private DataBaseHelper databaseHelper = null;
 
-    
+    List<Users> users;
+
+    ProviderPostBack providerPostBack;
+
     @Override
-    public void init(Context context) {
+    public void init(Context context, ProviderPostBack providerPostBack) {
+        this.providerPostBack = providerPostBack;
         databaseHelper = OpenHelperManager.getHelper(context, DataBaseHelper.class);
     }
 
-    users = changeToUsersType(list);
     @Override
-    public void insertAll(JsonArray jsonModel) {
-
+    public void insertAll(List<UserModel> userModels) {
+        users = changeToUsersType(userModels);
+        bulkInsert(users);
     }
 
     @Override
@@ -42,13 +47,14 @@ public class ORMLightProvider extends ORMProvider {
 
     @Override
     public void delete(String key, Object value) {
-
+        deleteUserTransaction(users);
     }
 
     @Override
     public void update(String key, Object newValue) {
-
+        updateUserTransaction(users);
     }
+
     private void saveToDatabase(List<Users> list) {
         long startTime = System.currentTimeMillis();
         try {
@@ -59,13 +65,13 @@ public class ORMLightProvider extends ORMProvider {
             long timeSpent = System.currentTimeMillis() - startTime;
             Log.wtf("TAG", "Save Time Milliseconds: " + timeSpent);
             Log.wtf("TAG", "Save Time Seconds: " + timeSpent / 1000);
-            dismissProgress();
+            providerPostBack.onOperationComplete("ORM_LIGHT", "INSERT", timeSpent, "");
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    private void deleteUserTransaction(final List<Users> list){
+    private void deleteUserTransaction(final List<Users> list) {
         final SQLiteDatabase db = databaseHelper.getWritableDatabase();
         db.beginTransaction();
         final long startTime = System.currentTimeMillis();
@@ -76,16 +82,17 @@ public class ORMLightProvider extends ORMProvider {
                 public Void call() throws Exception {
                     final Dao<Users, Integer> usersDao = databaseHelper.getUsersDao();
                     for (int i = 0; i < list.size(); i++) {
-                        usersDao.deleteById(i+1);
+                        usersDao.deleteById(i + 1);
                     }
                     return null;
                 }
             });
             db.setTransactionSuccessful();
-            dismissProgress();
+
             long timeSpent = System.currentTimeMillis() - startTime;
             Log.wtf("TAG", "Delete Time Milliseconds: " + timeSpent);
             Log.wtf("TAG", "Delete Time Seconds: " + timeSpent / 1000);
+            providerPostBack.onOperationComplete("ORM_LIGHT", "DELETE", timeSpent, "");
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -94,41 +101,41 @@ public class ORMLightProvider extends ORMProvider {
     }
 
 
-    private void deleteUser(List<Users> list) {
-        long startTime = System.currentTimeMillis();
-        int i = 0;
-        try {
-            final Dao<Users, Integer> usersDao = databaseHelper.getUsersDao();
-            for (Users user : list) {
-                usersDao.deleteById(i);
-                i++;
-            }
-            long timeSpent = System.currentTimeMillis() - startTime;
-            Log.wtf("TAG", "Delete Time Milliseconds: " + timeSpent);
-            Log.wtf("TAG", "Delete Time Seconds: " + timeSpent / 1000);
-            dismissProgress();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+//    private void deleteUser(List<Users> list) {
+//        long startTime = System.currentTimeMillis();
+//        int i = 0;
+//        try {
+//            final Dao<Users, Integer> usersDao = databaseHelper.getUsersDao();
+//            for (Users user : list) {
+//                usersDao.deleteById(i);
+//                i++;
+//            }
+//            long timeSpent = System.currentTimeMillis() - startTime;
+//            Log.wtf("TAG", "Delete Time Milliseconds: " + timeSpent);
+//            Log.wtf("TAG", "Delete Time Seconds: " + timeSpent / 1000);
+//            dismissProgress();
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
-    private void updateUser(List<Users> list) {
-        long startTime = System.currentTimeMillis();
-        try {
-            final Dao<Users, Integer> usersDao = databaseHelper.getUsersDao();
-            for (Users user : list) {
-                usersDao.update(user);
-            }
-            long timeSpent = System.currentTimeMillis() - startTime;
-            Log.wtf("TAG", "Update Time Milliseconds: " + timeSpent);
-            Log.wtf("TAG", "Update Time Seconds: " + timeSpent / 1000);
-            dismissProgress();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+//    private void updateUser(List<Users> list) {
+//        long startTime = System.currentTimeMillis();
+//        try {
+//            final Dao<Users, Integer> usersDao = databaseHelper.getUsersDao();
+//            for (Users user : list) {
+//                usersDao.update(user);
+//            }
+//            long timeSpent = System.currentTimeMillis() - startTime;
+//            Log.wtf("TAG", "Update Time Milliseconds: " + timeSpent);
+//            Log.wtf("TAG", "Update Time Seconds: " + timeSpent / 1000);
+//            dismissProgress();
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
-    private void updateUserTransaction(final List<Users> list){
+    private void updateUserTransaction(final List<Users> list) {
         final SQLiteDatabase db = databaseHelper.getWritableDatabase();
         db.beginTransaction();
         final long startTime = System.currentTimeMillis();
@@ -145,10 +152,11 @@ public class ORMLightProvider extends ORMProvider {
                 }
             });
             db.setTransactionSuccessful();
-            dismissProgress();
+
             long timeSpent = System.currentTimeMillis() - startTime;
             Log.wtf("TAG", "Update Time Milliseconds: " + timeSpent);
             Log.wtf("TAG", "Update Time Seconds: " + timeSpent / 1000);
+            providerPostBack.onOperationComplete("ORM_LIGHT", "UPDATE", timeSpent, "");
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -173,10 +181,11 @@ public class ORMLightProvider extends ORMProvider {
                 }
             });
             db.setTransactionSuccessful();
-            dismissProgress();
+
             long timeSpent = System.currentTimeMillis() - startTime;
             Log.wtf("TAG", "Save Time Milliseconds: " + timeSpent);
             Log.wtf("TAG", "Save Time Seconds: " + timeSpent / 1000);
+            providerPostBack.onOperationComplete("ORM_LIGHT", "INSERT", timeSpent, "");
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -185,9 +194,9 @@ public class ORMLightProvider extends ORMProvider {
     }
 
 
-    private List<Users> changeToUsersType(List<User> user) {
+    private List<Users> changeToUsersType(List<UserModel> user) {
         List<Users> users = new ArrayList<>();
-        for (User user1 : user) {
+        for (UserModel user1 : user) {
             Users user2 = new Users();
             user2.setFirst_name(user1.getFirst_name());
             user2.setLast_name(user1.getLast_name());
@@ -204,5 +213,5 @@ public class ORMLightProvider extends ORMProvider {
         }
         return users;
     }
-    
+
 }

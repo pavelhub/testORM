@@ -11,8 +11,6 @@ import com.j256.ormlite.table.TableUtils;
 
 import java.sql.SQLException;
 
-import itc.dev.com.generate.User;
-
 /**
  * Created by barbinkh on 15.11.2015.
  */

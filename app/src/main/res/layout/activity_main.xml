@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -23,14 +24,13 @@
                   android:layout_height="wrap_content"
                   android:text="NONE"/>
     </LinearLayout>
-
     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                   android:gravity="center_vertical" android:orientation="horizontal">
 
 
         <Button android:id="@+id/loadFormFileButton" android:layout_width="120dp"
                 android:layout_height="wrap_content"
-                android:text="Load model"/>
+                android:text="LOAD"/>
 
         <TextView android:id="@+id/textViewLoad"
                   android:layout_width="wrap_content"
@@ -39,20 +39,30 @@
     </LinearLayout>
 
     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-        android:gravity="center_vertical" android:orientation="horizontal">
+                  android:gravity="center_vertical" android:orientation="horizontal">
+        <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:gravity="center_vertical" android:orientation="vertical">
 
 
-        <Button android:id="@+id/saveAllButton" android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:text="Save All"/>
+            <Button android:id="@+id/insertRXBriteButton" android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:text="Insert  SQL Brite"/>
+            <Button android:id="@+id/selectButtonSqlBrite" android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:text="Select SQL Brite"/>
+            <Button android:id="@+id/updateButtonSqlBrite" android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:text="Update SQL Brite"/>
+            <Button android:id="@+id/deleteButtonSqlBrite" android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:text="delete"/>
+        </LinearLayout>
 
-        <Button android:id="@+id/deleteButton" android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:text="Delete"/>
-
-        <Button android:id="@+id/updateButton" android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:text="Update"/>
+        <TextView android:id="@+id/textViewInsertRXBrite"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="NONE"/>
     </LinearLayout>
+
 
 </LinearLayout>

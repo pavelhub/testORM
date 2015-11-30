@@ -3,8 +3,10 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/baseprovider/baseprovider.iml" filepath="$PROJECT_DIR$/baseprovider/baseprovider.iml" />
       <module fileurl="file://$PROJECT_DIR$/generate/generate.iml" filepath="$PROJECT_DIR$/generate/generate.iml" />
       <module fileurl="file://$PROJECT_DIR$/orm.iml" filepath="$PROJECT_DIR$/orm.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sqlbriteprovider/sqlbriteprovider.iml" filepath="$PROJECT_DIR$/sqlbriteprovider/sqlbriteprovider.iml" />
     </modules>
   </component>
 </project>
