@@ -2,6 +2,7 @@ package itc.dev.com.testorm.database.table;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Environment;
 import android.util.Log;
 
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
@@ -16,7 +17,7 @@ import java.sql.SQLException;
  */
 public class DataBaseHelper extends OrmLiteSqliteOpenHelper {
 
-    private static final String DATABASE_NAME = "users.db";
+    private static final String DATABASE_NAME = Environment.getExternalStorageDirectory().getAbsolutePath() + "/users.db";
     private static final int DATABASE_VERSION = 1;
 
     private Dao<Users, Integer> usersDao;

@@ -27,13 +27,13 @@ public class GenerateExecutor {
     private static String[] domain = new String[]{"teach.com", "mail.ru", "gmail.com", "yandex.ua", "mall.li", "arish.pub"};
 
 
-    public static List<UserModel> generateAndSaveToFile() {
+    public static List<UserModel> generateAndSaveToFile(int count) {
         Gson gson = new Gson();
         List<UserModel> listUserModels = new LinkedList<>();
-        for (int i = 0; i < 50000; i++) {
+        for (int i = 0; i < count; i++) {
             Random random = new Random(i);
             UserModel userModel = new UserModel();
-            userModel.id = i+1;
+            userModel.id = i + 1;
             userModel.first_name = firstName[random.nextInt(firstName.length)];
             userModel.last_name = lastNames[random.nextInt(lastNames.length)];
             String emailString = email[random.nextInt(email.length)] + "@" + domain[random.nextInt(domain.length)];
@@ -50,7 +50,7 @@ public class GenerateExecutor {
         }
         File modelFile = FileUril.getModelFile();
 
-        FileUril.saveToFile(gson.toJson(listUserModels), modelFile);
+//        FileUril.saveToFile(gson.toJson(listUserModels), modelFile);
         return listUserModels;
     }
 
@@ -60,6 +60,7 @@ public class GenerateExecutor {
         }.getType();
         return new Gson().fromJson(content, listType);
     }
+
     public static JsonArray restoreFromFileJsonModel() {
         String content = FileUril.readFromFile(FileUril.getModelFile());
         Type listType = new TypeToken<JsonArray>() {

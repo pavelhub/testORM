@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">TestORM</string>
+    <string-array name="providers">
+        <item>GreenDao</item>
+        <item>OrmLight</item>
+        <item>Realm</item>
+    </string-array>
+    <string-array name="operations">
+        <item>SELECT</item>
+        <item>INSERT</item>
+        <item>DELETE</item>
+        <item>UPDATE</item>
+    </string-array>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="title_activity_statistic">StatisticActivity</string>
 </resources>

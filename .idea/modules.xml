@@ -2,10 +2,14 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/MPChartLib/MPChartLib.iml" filepath="$PROJECT_DIR$/MPChartLib/MPChartLib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MyDaoGenerator/MyDaoGenerator.iml" filepath="$PROJECT_DIR$/MyDaoGenerator/MyDaoGenerator.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/baseprovider/baseprovider.iml" filepath="$PROJECT_DIR$/baseprovider/baseprovider.iml" />
       <module fileurl="file://$PROJECT_DIR$/generate/generate.iml" filepath="$PROJECT_DIR$/generate/generate.iml" />
+      <module fileurl="file://$PROJECT_DIR$/greendao/greendao.iml" filepath="$PROJECT_DIR$/greendao/greendao.iml" />
       <module fileurl="file://$PROJECT_DIR$/orm.iml" filepath="$PROJECT_DIR$/orm.iml" />
+      <module fileurl="file://$PROJECT_DIR$/realmprovider/realmprovider.iml" filepath="$PROJECT_DIR$/realmprovider/realmprovider.iml" />
       <module fileurl="file://$PROJECT_DIR$/sqlbriteprovider/sqlbriteprovider.iml" filepath="$PROJECT_DIR$/sqlbriteprovider/sqlbriteprovider.iml" />
     </modules>
   </component>

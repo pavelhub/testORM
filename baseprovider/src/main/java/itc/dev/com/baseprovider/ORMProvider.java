@@ -9,14 +9,15 @@ import java.util.List;
  */
 public interface ORMProvider {
 
-    void init(Context context,ProviderPostBack providerPostBack);
+
+    void init(Context context, ProviderPostBack providerPostBack);
 
     void insertAll(List<UserModel> userModels);
 
-    void select(String key, Object value);
+    void selectAll();
 
-    void delete(String key, Object value);
+    void deleteAll();
 
-    void update(String key, Object newValue);
+    void update(List<UserModel> userModels);
 
 }

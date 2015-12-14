@@ -18,7 +18,7 @@ import java.io.InputStreamReader;
 public class FileUril {
     public static final String DATABE_NAME = "user_sqlbite.db";
     public static final String VOICE_TEMP_FILE = "model.txt";
-    public static final String CACHE_FOLDER = "text_orm";
+    public static final String CACHE_FOLDER = "test_orm";
     public static final String FLODER_SD = Environment.getExternalStorageDirectory().getAbsolutePath();
 
     //    public static final String VOICE_TEMP_PATH = FLODER_SD+ File.separator + VOICE_TEMP_FILE;
@@ -26,6 +26,15 @@ public class FileUril {
         deleteFiles(new File(FLODER_SD, CACHE_FOLDER));
     }
 
+    public static File getDataBaseFile(String fileName) {
+        File file = new File(FLODER_SD, CACHE_FOLDER);
+        if (!file.exists())
+            file.mkdir();
+
+        file = new File(file, fileName);
+
+        return file;
+    }
 
     public static File getDataBaseFile() {
         File file = new File(FLODER_SD, CACHE_FOLDER);

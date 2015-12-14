@@ -31,6 +31,7 @@ public class ORMLightProvider implements ORMProvider {
     @Override
     public void init(Context context, ProviderPostBack providerPostBack) {
         this.providerPostBack = providerPostBack;
+
         databaseHelper = OpenHelperManager.getHelper(context, DataBaseHelper.class);
     }
 
@@ -41,19 +42,35 @@ public class ORMLightProvider implements ORMProvider {
     }
 
     @Override
-    public void select(String key, Object value) {
+    public void selectAll() {
+        final SQLiteDatabase db = databaseHelper.getWritableDatabase();
 
+        final long startTime = System.currentTimeMillis();
+        try {
+            final Dao<Users, Integer> usersDao = databaseHelper.getUsersDao();
+            // do ormlite stuff as usual, no callBatchTasks() needed
+            List<Users> list = usersDao.queryForAll();
+            for (Users users1 : list) {
+                users1.getFirst_name();
+            }
+            long timeSpent = System.currentTimeMillis() - startTime;
+
+            providerPostBack.onOperationComplete("ORM_LIGHT", "SELECT", timeSpent, "size:" + list.size());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
-    public void delete(String key, Object value) {
+    public void deleteAll() {
         deleteUserTransaction(users);
     }
 
     @Override
-    public void update(String key, Object newValue) {
+    public void update(List<UserModel> list) {
         updateUserTransaction(users);
     }
+
 
     private void saveToDatabase(List<Users> list) {
         long startTime = System.currentTimeMillis();
